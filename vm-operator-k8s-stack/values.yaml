@@ -111,7 +111,7 @@ vmsingle:
   # https://docs.victoriametrics.com/operator/api.html#vmsinglespec
   spec:
     image:
-      tag: v1.91.3
+      tag: v1.93.4
     retentionPeriod: "14"
     replicaCount: 1
     extraArgs: {}
@@ -841,6 +841,10 @@ kubelet:
         regex: (uid)
       - action: labeldrop
         regex: (id|name)
+      - action: labeldrop
+        regex: failure_domain_beta_kubernetes_.*
+      - action: labeldrop
+        regex: beta_kubernetes_io_.*        
       - action: drop
         source_labels: [__name__]
         regex: (rest_client_request_duration_seconds_bucket|rest_client_request_duration_seconds_sum|rest_client_request_duration_seconds_count)
