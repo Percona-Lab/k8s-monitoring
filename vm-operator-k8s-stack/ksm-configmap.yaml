@@ -127,6 +127,9 @@ data:
             namespace:
             - metadata
             - namespace
+            dbcluster:
+            - spec
+            - pxcCluster
           metricNamePrefix: kube_pxc_backup
           metrics:
             - name: info
@@ -135,9 +138,6 @@ data:
                 type: Info
                 info:
                   labelsFromPath:
-                    cluster:
-                    - spec
-                    - pxcCluster
                     storage:
                     - spec
                     - storageName
@@ -146,6 +146,7 @@ data:
               each:
                 type: StateSet
                 stateSet:
+                  nilIsZero: true
                   labelName: state
                   path:
                   - status
@@ -175,6 +176,9 @@ data:
             namespace:
             - metadata
             - namespace
+            dbcluster:
+            - spec
+            - pxcCluster            
           metricNamePrefix: kube_pxc_restore
           metrics:
             - name: info
@@ -183,9 +187,6 @@ data:
                 type: Info
                 info:
                   labelsFromPath:
-                    cluster:
-                    - spec
-                    - pxcCluster
                     backup:
                     - spec
                     - backupName
@@ -194,6 +195,7 @@ data:
               each:
                 type: StateSet
                 stateSet:
+                  nilIsZero: true
                   labelName: state
                   path:
                   - status
@@ -317,6 +319,9 @@ data:
             namespace:
             - metadata
             - namespace
+            dbcluster:
+            - spec
+            - clusterName            
           metricNamePrefix: kube_psmdb_backup
           metrics:
             - name: info
@@ -325,9 +330,6 @@ data:
                 type: Info
                 info:
                   labelsFromPath:
-                    cluster:
-                    - spec
-                    - clusterName
                     storage:
                     - spec
                     - storageName
@@ -336,6 +338,7 @@ data:
               each:
                 type: StateSet
                 stateSet:
+                  nilIsZero: true
                   labelName: state
                   path:
                   - status
@@ -387,6 +390,9 @@ data:
             namespace:
             - metadata
             - namespace
+            dbcluster:
+            - spec
+            - clusterName             
           metricNamePrefix: kube_psmdb_restore
           metrics:
             - name: info
@@ -395,9 +401,6 @@ data:
                 type: Info
                 info:
                   labelsFromPath:
-                    cluster:
-                    - spec
-                    - clusterName
                     storage:
                     - spec
                     - backupName
@@ -406,6 +409,7 @@ data:
               each:
                 type: StateSet
                 stateSet:
+                  nilIsZero: true
                   labelName: state
                   path:
                   - status
@@ -516,6 +520,9 @@ data:
             namespace:
             - metadata
             - namespace
+            dbcluster:
+            - spec
+            - pgCluster              
           metricNamePrefix: kube_pg_backup
           metrics:
             - name: info
@@ -524,9 +531,6 @@ data:
                 type: Info
                 info:
                   labelsFromPath:
-                    cluster:
-                    - spec
-                    - pgCluster
                     repo:
                     - spec
                     - repoName
@@ -535,6 +539,7 @@ data:
               each:
                 type: StateSet
                 stateSet:
+                  nilIsZero: true
                   labelName: state
                   path:
                   - status
@@ -555,6 +560,9 @@ data:
             namespace:
             - metadata
             - namespace
+            dbcluster:
+            - spec
+            - pgCluster              
           metricNamePrefix: kube_pg_restore
           metrics:
             - name: info
@@ -563,9 +571,6 @@ data:
                 type: Info
                 info:
                   labelsFromPath:
-                    cluster:
-                    - spec
-                    - pgCluster
                     repo:
                     - spec
                     - repoName
@@ -574,6 +579,7 @@ data:
               each:
                 type: StateSet
                 stateSet:
+                  nilIsZero: true
                   labelName: state
                   path:
                   - status
