@@ -146,7 +146,6 @@ data:
               each:
                 type: StateSet
                 stateSet:
-                  nilIsZero: true
                   labelName: state
                   path:
                   - status
@@ -195,7 +194,6 @@ data:
               each:
                 type: StateSet
                 stateSet:
-                  nilIsZero: true
                   labelName: state
                   path:
                   - status
@@ -409,7 +407,6 @@ data:
               each:
                 type: StateSet
                 stateSet:
-                  nilIsZero: true
                   labelName: state
                   path:
                   - status
@@ -539,7 +536,6 @@ data:
               each:
                 type: StateSet
                 stateSet:
-                  nilIsZero: true
                   labelName: state
                   path:
                   - status
@@ -579,7 +575,6 @@ data:
               each:
                 type: StateSet
                 stateSet:
-                  nilIsZero: true
                   labelName: state
                   path:
                   - status
