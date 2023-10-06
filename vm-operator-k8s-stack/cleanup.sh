@@ -7,7 +7,7 @@
 
 
 # Default values
-CLEAN_CRD=true
+CLEAN_CRD=false
 NAMESPACE=""
 CHART_NAME="vm-k8s-stack"
 
@@ -82,8 +82,8 @@ while [[ $# -gt 0 ]]; do
       NAMESPACE="$2"
       shift 2
       ;;
-    --keep-crd)
-      CLEAN_CRD=false
+    --clean-crd)
+      CLEAN_CRD=true
       shift
       ;;
     --chart-name)

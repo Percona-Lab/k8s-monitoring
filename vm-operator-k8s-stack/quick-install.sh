@@ -7,6 +7,7 @@
 
 # Initialize variables with default values
 NODE_EXPORTER_ENABLED=false
+HELM_CHART_VERSION="0.17.5"
 
 
 # Create Kubernetes namespace if it doesn't exist
@@ -35,14 +36,16 @@ install_helm_chart() {
         helm repo add prometheus-community https://prometheus-community.github.io/helm-charts; \
         helm repo add vm https://victoriametrics.github.io/helm-charts/; \
         helm repo update
+
     # Install Helm Chart
-    echo "Installing victoria metrics k8s stack chart"
+    echo "Installing victoria metrics k8s stack chart, version: $HELM_CHART_VERSION"
     helm install vm-k8s-stack vm/victoria-metrics-k8s-stack \
-          -f https://raw.githubusercontent.com/Percona-Lab/k8s-monitoring/main/vm-operator-k8s-stack/values.yaml \
-          --set externalVM.write.url=${url}/victoriametrics/api/v1/write \
-          --set prometheus-node-exporter.enabled=$NODE_EXPORTER_ENABLED \
-          --set vmagent.spec.externalLabels.k8s_cluster_id=$K8S_CLUSTER_ID \
-          -n $NAMESPACE
+        -f https://raw.githubusercontent.com/Percona-Lab/k8s-monitoring/main/vm-operator-k8s-stack/values.yaml \
+        --set externalVM.write.url=${url}/victoriametrics/api/v1/write \
+        --set prometheus-node-exporter.enabled=$NODE_EXPORTER_ENABLED \
+        --set vmagent.spec.externalLabels.k8s_cluster_id=$K8S_CLUSTER_ID \
+        -n $NAMESPACE --version $HELM_CHART_VERSION
+  
 
 }
 
@@ -69,9 +72,13 @@ while [[ $# -gt 0 ]]; do
             NAMESPACE="$2"
             shift 2
             ;;
+        --chart-version)
+            HELM_CHART_VERSION="$2"
+            shift 2
+            ;;            
         *)
             echo "Unknown argument: $1"
-			echo "Usage: $0 --api-key <API_KEY> --pmm-server-url <PMM_SERVER_URL> --k8s-cluster-id <K8S_CLUSTER_ID> --namespace <NAMESPACE> [--node-exporter-enabled] "
+			echo "Usage: $0 --api-key <API_KEY> --pmm-server-url <PMM_SERVER_URL> --k8s-cluster-id <K8S_CLUSTER_ID> --namespace <NAMESPACE> [--node-exporter-enabled] [--chart-version <chart-version>]"
             exit 1
             ;;
     esac
@@ -82,7 +89,7 @@ if [[ -z $API_KEY || -z $PMM_SERVER_URL || -z $K8S_CLUSTER_ID || -z $NAMESPACE ]
     echo "Usage: $0 --api-key <API_KEY> --pmm-server-url <PMM_SERVER_URL> --k8s-cluster-id <K8S_CLUSTER_ID> --namespace <NAMESPACE> [--node-exporter-enabled] "
     exit 1
 fi
-
+ 
 # Create Kubernetes namespace if needed
 create_namespace_if_not_exists "$NAMESPACE"
 
