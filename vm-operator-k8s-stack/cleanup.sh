@@ -7,7 +7,7 @@
 
 
 # Default values
-CLEAN_CRD=false
+CLEAN_CRD=true
 NAMESPACE=""
 CHART_NAME="vm-k8s-stack"
 
@@ -58,6 +58,10 @@ cleanup_crd() {
     for CRD in $CRD_LIST; do
         echo "- $CRD"
     done
+    # Clear any existing input in the buffer
+    while read -r -t 0; do
+        read -r
+    done    
     # Prompt the user for confirmation
     read -p "Do you want to continue (y/n)? " -n 1 -r
     echo    # Move to a new line
@@ -82,8 +86,8 @@ while [[ $# -gt 0 ]]; do
       NAMESPACE="$2"
       shift 2
       ;;
-    --clean-crd)
-      CLEAN_CRD=true
+    --keep-crd)
+      CLEAN_CRD=false
       shift
       ;;
     --chart-name)
@@ -99,7 +103,7 @@ done
 
 # Check if the --namespace argument is provided
 if [ -z "$NAMESPACE" ]; then
-  echo "Usage: $0 --namespace <NAMESPACE> [--clean-crd] [--chart-name <HELM-CHART-NAME>]"
+  echo "Usage: $0 --namespace <NAMESPACE> [--keep-crd] [--chart-name <HELM-CHART-NAME>]"
   exit 1
 fi
 
