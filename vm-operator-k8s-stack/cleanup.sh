@@ -45,7 +45,7 @@ uninstall_helm_chart() {
         echo "Operation canceled."
         exit 0
     fi 
-    helm uninstall $CHART_NAME   
+    helm uninstall $CHART_NAME -n $NAMESPACE
 }
 
 # Clean up Victoria metrics operator CRD
