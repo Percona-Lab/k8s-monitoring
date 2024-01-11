@@ -56,20 +56,20 @@ uninstall_helm_chart() {
 
 # Clean up Victoria metrics operator CRD
 cleanup_crd() {
-
-    # Delete CRDs if the --clean-crd flag is set
-    if [ "$CLEAN_CRD" = true ]; then
+    if [ "$CLEAN_CRD" = false ]; then
+        echo "CRD will not be deleted"
+	return
+    fi
     # Display the list of CRDs to be deleted
     echo "The following CRDs will be deleted:"
     for CRD in $CRD_LIST; do
         echo "- $CRD"
     done
-    fi    
     while true; do
         read -p "Do you wish to continue? (y/n) " inp
         case $inp in
             [Yy] ) echo "Cleaning CRD" ; break;;
-            [Nn] ) echo "Not Cleaning CRD";exit 0;;
+            [Nn] ) echo "CRD will not be deleted";exit 0;;
 	    * ) echo "Please provide input (y/n)";;
         esac
     done
@@ -116,7 +116,7 @@ cleanup_k8s_objects
 # Uninstall Helm Chart
 uninstall_helm_chart
 
-# Clean up CRD 
-cleanup_crd
 
+# Delete CRDs if the --clean-crd flag is set
+cleanup_crd
 
