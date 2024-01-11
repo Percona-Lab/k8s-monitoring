@@ -39,14 +39,20 @@ cleanup_k8s_objects() {
 uninstall_helm_chart() {
     echo "Uninstalling Helm chart: $CHART_NAME in Namespace: $NAMESPACE"   
     # Prompt the user for confirmation
-    read -p "Do you want to continue (y/n)? " -n 1 -r
-    echo    # Move to a new line
-    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-        echo "Operation canceled."
-        exit 0
-    fi 
+
+    while true; do
+        read -p "Do you wish to continue? (y/n) " inp
+        case $inp in
+            [Yy] ) break;;
+            [Nn] ) echo "Operation Cancelled";exit;;
+	    * ) echo "Please provide input (y/n)";;
+        esac
+    done
+
     helm uninstall $CHART_NAME -n $NAMESPACE
+    echo "Uninstalled Helm chart: $CHART_NAME in Namespace: $NAMESPACE"
 }
+
 
 # Clean up Victoria metrics operator CRD
 cleanup_crd() {
@@ -58,26 +64,23 @@ cleanup_crd() {
     for CRD in $CRD_LIST; do
         echo "- $CRD"
     done
-    # Clear any existing input in the buffer
-    while read -r -t 0; do
-        read -r
-    done    
-    # Prompt the user for confirmation
-    read -p "Do you want to continue (y/n)? " -n 1 -r
-    echo    # Move to a new line
-    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-        echo "Operation canceled."
-        exit 0
-    fi     
-    echo "Cleaning CRDs"
+    fi    
+    while true; do
+        read -p "Do you wish to continue? (y/n) " inp
+        case $inp in
+            [Yy] ) echo "Cleaning CRD" ; break;;
+            [Nn] ) echo "Not Cleaning CRD";exit 0;;
+	    * ) echo "Please provide input (y/n)";;
+        esac
+    done
     for CRD in $CRD_LIST; do
         kubectl delete crd "$CRD"
-    done
-    else
-    echo "Not cleaning CRDs"
-    fi    
+    done    
+    echo "Deleted the CRD"
 
 }
+
+
 
 # Parse command-line arguments
 while [[ $# -gt 0 ]]; do
