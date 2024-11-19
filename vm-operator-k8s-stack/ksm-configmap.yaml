@@ -147,6 +147,7 @@ data:
                 type: StateSet
                 stateSet:
                   labelName: state
+                  nilIsZero: true
                   path:
                   - status
                   - state
@@ -160,6 +161,7 @@ data:
               each:
                 type: Gauge
                 gauge:
+                  nilIsZero: true
                   path:
                   - status
                   - completed
@@ -195,6 +197,7 @@ data:
                 type: StateSet
                 stateSet:
                   labelName: state
+                  nilIsZero: true
                   path:
                   - status
                   - state
@@ -211,6 +214,7 @@ data:
               each:
                 type: Gauge
                 gauge:
+                  nilIsZero: true
                   path:
                   - status
                   - completed
@@ -276,6 +280,7 @@ data:
                 type: StateSet
                 stateSet:
                   labelName: state
+                  nilIsZero: true
                   path:
                   - status
                   - mongos
@@ -408,6 +413,7 @@ data:
                 type: StateSet
                 stateSet:
                   labelName: state
+                  nilIsZero: true
                   path:
                   - status
                   - state
@@ -536,6 +542,7 @@ data:
               each:
                 type: StateSet
                 stateSet:
+                  nilIsZero: true
                   labelName: state
                   path:
                   - status
