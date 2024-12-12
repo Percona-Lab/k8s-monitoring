@@ -552,6 +552,7 @@ data:
                   - Running
                   - Failed
                   - Succeeded
+                  - ""
         - groupVersionKind:
             group: pgv2.percona.com
             version: v2

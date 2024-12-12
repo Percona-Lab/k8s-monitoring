@@ -7,7 +7,8 @@
 
 # Initialize variables with default values
 NODE_EXPORTER_ENABLED=false
-HELM_CHART_VERSION="0.17.5"
+HELM_CHART_VERSION="0.30.3"
+TAG="v0.1.1"
 
 
 # Create Kubernetes namespace if it doesn't exist
@@ -23,7 +24,7 @@ create_namespace_if_not_exists() {
 setup_prerequisites() {
     local api_key="$1"
     echo "Creating configmap for kube-state-metrics configuration"
-    kubectl apply -f https://raw.githubusercontent.com/Percona-Lab/k8s-monitoring/main/vm-operator-k8s-stack/ksm-configmap.yaml -n $NAMESPACE
+    kubectl apply -f https://raw.githubusercontent.com/Percona-Lab/k8s-monitoring/refs/tags/${TAG}/vm-operator-k8s-stack/ksm-configmap.yaml -n $NAMESPACE
     echo "Creating secret with PMM API Key"
     kubectl create secret generic pmm-token-vmoperator --from-literal=api_key="$api_key" -n $NAMESPACE
 }
@@ -38,9 +39,10 @@ install_helm_chart() {
         helm repo update
 
     # Install Helm Chart
+        # -f https://raw.githubusercontent.com/Percona-Lab/k8s-monitoring/refs/tags/${TAG}/vm-operator-k8s-stack/values.yaml \
     echo "Installing victoria metrics k8s stack chart, version: $HELM_CHART_VERSION"
     helm install vm-k8s-stack vm/victoria-metrics-k8s-stack \
-        -f https://raw.githubusercontent.com/Percona-Lab/k8s-monitoring/main/vm-operator-k8s-stack/values.yaml \
+        -f /home/chetan/percona/k8s-monitoring/vm-operator-k8s-stack/values.yaml \
         --set externalVM.write.url=${url}/victoriametrics/api/v1/write \
         --set prometheus-node-exporter.enabled=$NODE_EXPORTER_ENABLED \
         --set vmagent.spec.externalLabels.k8s_cluster_id=$K8S_CLUSTER_ID \
@@ -75,7 +77,11 @@ while [[ $# -gt 0 ]]; do
         --chart-version)
             HELM_CHART_VERSION="$2"
             shift 2
-            ;;            
+            ;;    
+        --tag)
+            TAG="$2"
+            shift 2
+            ;;                     
         *)
             echo "Unknown argument: $1"
 			echo "Usage: $0 --api-key <API_KEY> --pmm-server-url <PMM_SERVER_URL> --k8s-cluster-id <K8S_CLUSTER_ID> --namespace <NAMESPACE> [--node-exporter-enabled] [--chart-version <chart-version>]"
