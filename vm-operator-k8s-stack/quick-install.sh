@@ -42,7 +42,7 @@ install_helm_chart() {
         # -f https://raw.githubusercontent.com/Percona-Lab/k8s-monitoring/refs/tags/${TAG}/vm-operator-k8s-stack/values.yaml \
     echo "Installing victoria metrics k8s stack chart, version: $HELM_CHART_VERSION"
     helm install vm-k8s-stack vm/victoria-metrics-k8s-stack \
-        -f /home/chetan/percona/k8s-monitoring/vm-operator-k8s-stack/values.yaml \
+        -f https://raw.githubusercontent.com/Percona-Lab/k8s-monitoring/refs/tags/${TAG}/vm-operator-k8s-stack/values.yaml \
         --set externalVM.write.url=${url}/victoriametrics/api/v1/write \
         --set prometheus-node-exporter.enabled=$NODE_EXPORTER_ENABLED \
         --set vmagent.spec.externalLabels.k8s_cluster_id=$K8S_CLUSTER_ID \
