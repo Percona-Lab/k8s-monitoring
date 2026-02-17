@@ -95,7 +95,19 @@ kube-state-metrics:
       - perconapgbackups
       verbs:
       - list
-      - watch     
+      - watch  
+    - apiGroups:
+      - ps.percona.com
+      resources:
+      - perconaservermysqls
+      - perconaservermysqls/status
+      - perconaservermysqlbackups
+      - perconaservermysqlbackups/status
+      - perconaservermysqlrestores
+      - perconaservermysqlrestores/status
+      verbs:
+      - list
+      - watch
 
 # -- Component scraping the kubelets
 kubelet:
