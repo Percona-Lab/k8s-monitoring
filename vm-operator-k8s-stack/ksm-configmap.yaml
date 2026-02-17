@@ -591,4 +591,190 @@ data:
                   - Starting
                   - Running
                   - Failed
-                  - Succeeded                  
+                  - Succeeded             
+        - groupVersionKind:
+            group: ps.percona.com
+            version: v1alpha1
+            kind: PerconaServerMySQL
+          labelsFromPath:
+            name:
+            - metadata
+            - name
+            namespace:
+            - metadata
+            - namespace         
+          metricNamePrefix: kube_ps_mysql
+          metrics:
+            - name: info
+              help: "Information of PXC cluster on k8s"
+              each:
+                type: Info
+                info:
+                  labelsFromPath:
+                    version:
+                    - spec
+                    - crVersion
+            - name: replication_type
+              help: "Async or Group Replication"
+              each:
+                type: StateSet
+                stateSet:
+                  labelName: state
+                  path:
+                  - spec
+                  - mysql
+                  - clusterType
+                  list:
+                  - async
+                  - "group-replication"        
+            - name: status_state
+              help: "PS MySQL state"
+              each:
+                type: StateSet
+                stateSet:
+                  labelName: state
+                  path:
+                  - status
+                  - state
+                  list:
+                  - stopping
+                  - ready
+                  - initializing
+                  - error
+                  - paused
+            - name: status_mysql_replicas
+              help: "PS MySQL Replicas"
+              each:
+                type: Gauge
+                gauge:
+                  nilIsZero: true
+                  path:
+                  - status
+                  - mysql
+                  - size
+            - name: status_mysql_replicas_ready
+              help: "Number of ready MySQL replicas"
+              each:
+                type: Gauge
+                gauge:
+                  nilIsZero: true
+                  path:
+                  - status
+                  - mysql
+                  - ready
+            - name: status_haproxy_replicas
+              help: "HAProxy Replicas"
+              each:
+                type: Gauge
+                gauge:
+                  nilIsZero: true
+                  path:
+                  - status
+                  - haproxy
+                  - size
+            - name: status_haproxy_replicas_ready
+              help: "Number of ready HAProxy replicas"
+              each:
+                type: Gauge
+                gauge:
+                  nilIsZero: true
+                  path:
+                  - status
+                  - haproxy
+                  - ready
+        - groupVersionKind:
+            group: ps.percona.com
+            version: v1alpha1
+            kind: PerconaServerMySQLBackup
+          labelsFromPath:
+            name:
+            - metadata
+            - name
+            namespace:
+            - metadata
+            - namespace
+            dbcluster:
+            - spec
+            - clusterName 
+          metricNamePrefix: kube_ps_mysql_backup
+          metrics:
+            - name: info
+              help: "Information of PSMySQL cluster on k8s"
+              each:
+                type: Info
+                info:
+                  labelsFromPath:
+                    storage:
+                    - spec
+                    - storageName
+            - name: status_state
+              help: "PSMySQL Backup state"
+              each:
+                type: StateSet
+                stateSet:
+                  labelName: state
+                  path:
+                  - status
+                  - state
+                  list:
+                  - Starting
+                  - Running
+                  - Failed
+                  - Succeeded
+                  - Error
+            - name: status_completed
+              help: "Time when PSMySQL Backup was completed"
+              each:
+                type: Gauge
+                gauge:
+                  path:
+                  - status
+                  - completed
+        - groupVersionKind:
+            group: ps.percona.com
+            version: v1alpha1
+            kind: PerconaServerMySQLRestore
+          labelsFromPath:
+            name:
+            - metadata
+            - name
+            namespace:
+            - metadata
+            - namespace
+            dbcluster:
+            - spec
+            - clusterName            
+          metricNamePrefix: kube_ps_mysql_restore
+          metrics:
+            - name: info
+              help: "Information of PSMySQL cluster on k8s"
+              each:
+                type: Info
+                info:
+                  labelsFromPath:
+                    backup:
+                    - spec
+                    - backupName
+            - name: status_state
+              help: "PSMySQL Restore state"
+              each:
+                type: StateSet
+                stateSet:
+                  labelName: state
+                  path:
+                  - status
+                  - state
+                  list:
+                  - Starting
+                  - Running
+                  - Error
+                  - Failed
+                  - Succeeded
+            - name: status_completed
+              help: "Time when PSMySQL Restore was completed"
+              each:
+                type: Gauge
+                gauge:
+                  path:
+                  - status
+                  - completed     

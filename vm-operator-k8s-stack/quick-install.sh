@@ -7,8 +7,8 @@
 
 # Initialize variables with default values
 NODE_EXPORTER_ENABLED=false
-HELM_CHART_VERSION="0.30.3"
-TAG="v0.1.1"
+HELM_CHART_VERSION="0.71.1"
+TAG="v0.1.2"
 
 
 # Create Kubernetes namespace if it doesn't exist
