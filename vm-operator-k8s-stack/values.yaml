@@ -17,6 +17,9 @@ vmalert:
   # -- Disable VM Alert
   enabled: false
 
+prometheus-node-exporter:
+  # -- Disable Node exporter by default
+  enabled: false
 
 vmsingle:
   # -- Disable VMSingle
