@@ -13,6 +13,17 @@ externalVM:
       name: pmm-token-vmoperator
       key: api_key
 
+vmsingle:
+  # -- Disable VMSingle
+  enabled: false
+
+alertmanager:
+  # -- Disable Alert Manager
+  enabled: false
+
+grafana:
+  enabled: false
+
 # -- kube-state-metrics dependency chart configuration. For possible values check [here](https://github.com/prometheus-community/helm-charts/blob/main/charts/kube-state-metrics/values.yaml)
 kube-state-metrics:
   # image:
