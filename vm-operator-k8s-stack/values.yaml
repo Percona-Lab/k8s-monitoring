@@ -1,17 +1,13 @@
 
-# -- External VM read and write URLs
-externalVM:
-  read:
-    url: ""
-    # bearerTokenSecret:
-    #   name: dbaas-read-access-token
-    #   key: bearerToken
-  write:
+external:
+  vm:
+    write:
     # Replace PMM-SERVER-URL with valid URL of PMM Server
-    url: "https://<PMM-SERVER-URL>//victoriametrics/api/v1/write"
-    bearerTokenSecret:
-      name: pmm-token-vmoperator
-      key: api_key
+      url: "https://<PMM-SERVER-URL>//victoriametrics/api/v1/write"
+      bearerTokenSecret:
+        name: pmm-token-vmoperator
+        key: api_key
+
 
 vmalert:
   # -- Disable VM Alert
