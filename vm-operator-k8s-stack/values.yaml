@@ -31,8 +31,11 @@ grafana:
 
 # -- kube-state-metrics dependency chart configuration. For possible values check [here](https://github.com/prometheus-community/helm-charts/blob/main/charts/kube-state-metrics/values.yaml)
 kube-state-metrics:
-  # image:
-  #   tag: "v2.14.0"
+  customResourceState:
+    enabled: true
+    create: false
+    name: customresource-config-ksm
+    key: config
   enabled: true
   ## all values for kube-state-metrics helm chart can be specified here  
   ## Customizaing kube-state-metrics installation for scraping Custom resources related to Percona Operators

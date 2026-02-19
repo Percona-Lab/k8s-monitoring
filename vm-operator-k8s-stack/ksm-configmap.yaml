@@ -594,7 +594,7 @@ data:
                   - Succeeded             
         - groupVersionKind:
             group: ps.percona.com
-            version: v1alpha1
+            version: v1
             kind: PerconaServerMySQL
           labelsFromPath:
             name:
@@ -684,7 +684,7 @@ data:
                   - ready
         - groupVersionKind:
             group: ps.percona.com
-            version: v1alpha1
+            version: v1
             kind: PerconaServerMySQLBackup
           labelsFromPath:
             name:
@@ -732,7 +732,7 @@ data:
                   - completed
         - groupVersionKind:
             group: ps.percona.com
-            version: v1alpha1
+            version: v1
             kind: PerconaServerMySQLRestore
           labelsFromPath:
             name:
