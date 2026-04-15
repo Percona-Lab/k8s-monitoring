@@ -7,7 +7,7 @@
 
 # Initialize variables with default values
 NODE_EXPORTER_ENABLED=false
-HELM_CHART_VERSION="0.71.1"
+HELM_CHART_VERSION="0.74.0"
 TAG="v0.1.2"
 
 
@@ -46,7 +46,8 @@ install_helm_chart() {
         --set external.vm.write.url=${url}/victoriametrics/api/v1/write \
         --set prometheus-node-exporter.enabled=$NODE_EXPORTER_ENABLED \
         --set vmagent.spec.externalLabels.k8s_cluster_id=$K8S_CLUSTER_ID \
-        -n $NAMESPACE --version $HELM_CHART_VERSION
+        --version $HELM_CHART_VERSION \
+        -n $NAMESPACE 
   
 
 }
