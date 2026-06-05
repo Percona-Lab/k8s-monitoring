@@ -7,7 +7,7 @@
 
 # Initialize variables with default values
 NODE_EXPORTER_ENABLED=false
-HELM_CHART_VERSION="0.81.1"
+HELM_CHART_VERSION="0.81.0"
 TAG="v0.1.3"
 
 
